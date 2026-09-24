@@ -9,3 +9,126 @@ body {
     color: #1f2937;
     line-height: 1.6;
 }
+
+.cabecalho {
+    background-color: #ffffff;
+    padding: 32px 24px 20px;
+    text-align: center;
+    box-shadow: 0 1px 8px rgb(15 23 42 / 0.05);
+}
+
+.marca h1 {
+    margin: 0;
+    color: #2563eb;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.marca h1 i {
+    margin-right: 6px;
+    font-size: 34px;
+}
+
+.marca p {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.navegacao {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.navegacao a {
+    display: inline-block;
+    margin: 4px 10px;
+    padding: 6px 0;
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+}
+
+.navegacao a:hover {
+    color: #2563eb;
+    border-bottom-color: #2563eb;
+}
+
+.navegacao a:focus {
+    color: #2563eb;
+    border-bottom-color: #2563eb;
+    outline: 2px solid #93c5fd;
+    outline-offset: 4px;
+}
+
+.conteudo {
+    width: 90%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.conteudo h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #111827;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.visao-geral {
+    margin-bottom: 48px;
+}
+
+.indicador {
+    margin-bottom: 16px;
+    padding: 28px;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+}
+.indicador-icone {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 64px;
+    line-height: 1;
+}
+
+.indicador-abertos .indicador-icone {
+    color: #2563eb;
+}
+
+.indicador-atendimento .indicador-icone {
+    color: #f59e0b;
+}
+
+.indicador-concluidos .indicador-icone {
+    color: #16a34a;
+}
+
+.indicador-atrasados .indicador-icone {
+    color: #dc2626;
+}
+
+.indicador strong {
+    display: block;
+    color: #111827;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.indicador span {
+    display: block;
+    margin-top: 4px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.indicador {
+    box-shadow: 0 4px 14px rgb(15 23 42 / 0.05);
+}
+
