@@ -59,6 +59,7 @@ body {
     flex-direction: row;
     gap: 16px;
     flex-wrap: wrap-reverse;
+    align-items: center;
 }
 
 .item {
@@ -75,6 +76,13 @@ body {
 
 }
 
-.item-1{
-    flex-grow: 10;
+.item-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.item-3 {
+    align-self: flex-start;
 }
