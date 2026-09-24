@@ -55,6 +55,11 @@ body {
     background-color: #eef2ff;
     border: 2px dashed #93c5fd;
     border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
 }
 
 .item {
