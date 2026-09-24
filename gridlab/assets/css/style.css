@@ -49,6 +49,8 @@ body {
 }
 
 .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     margin-top: 24px;
     padding: 16px;
     min-height: 350px;
