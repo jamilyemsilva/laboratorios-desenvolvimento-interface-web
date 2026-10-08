@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f7fb;
+    color: #1f2937;
+    line-height: 1.6;
+}
+
+img {
+    display: block;
+}
+
+.cabecalho {
+    padding: 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.marca h1 {
+    margin: 0;
+    color: #2563eb;
+    font-size: 28px;
+}
+
+.marca p {
+    margin: 4px 0 0;
+    color: #64748b;
+}
+
+.navegacao {
+    margin-top: 20px;
+}
+
+.navegacao a {
+    display: block;
+    padding: 8px 0;
+    color: #475569;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.conteudo {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.apresentacao {
+    padding: 48px 0;
+}
+
+.apresentacao-texto h2 {
+    margin: 8px 0 16px;
+    color: #111827;
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+.destaque {
+    margin: 0;
+    color: #2563eb;
+    font-weight: 700;
+}
+
+.botao {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 11px 18px;
+    background-color: #2563eb;
+    color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.apresentacao-imagem {
+    margin-top: 32px;
+}
+
+.apresentacao-imagem img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.secao {
+    padding: 48px 0;
+}
+
+.secao h2 {
+    margin-top: 0;
+    color: #111827;
+}
+
+.cards {
+    display: grid;
+    gap: 20px;
+}
+
+.card {
+    padding: 24px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #2563eb;
+}
+
+.exemplo-conteudo {
+    display: grid;
+    gap: 24px;
+}
+
+.lateral {
+    padding: 24px;
+    background-color: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+}
+
+.lateral h3 {
+    margin-top: 0;
+    color: #1d4ed8;
+}
+
+.rodape {
+    margin-top: 40px;
+    padding: 32px 24px;
+    text-align: center;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    color: #64748b;
+}
