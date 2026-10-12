@@ -55,6 +55,25 @@ body{
     font-weight: 600;
 }
 
+.recursos{
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+}
+
+.recursos h2{
+        text-align: center;
+}
+
+.recursos ul{
+    text-align: center;
+    list-style:none;
+    color: #14253d;
+}
+
+
 .rodape {
     margin-top: 40px;
     padding: 24px;
