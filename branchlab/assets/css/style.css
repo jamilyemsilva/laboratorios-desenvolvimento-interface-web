@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #f5f7fb;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1f2937;
+}
+
+.cabecalho {
+    padding: 32px;
+    text-align: center;
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+.cabecalho h1{
+    margin: 0;
+}
+
+.cabecalho p{
+    margin: 9px;
+}
+
+.conteudo{
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 0;
+}
+
+.apresentacao{
+    background-color: #ffffff;
+    padding: 32px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.apresentacao h2{
+    margin-top: 0;
+}
