@@ -54,3 +54,12 @@ body{
     text-decoration: none;
     font-weight: 600;
 }
+
+.rodape {
+    margin-top: 40px;
+    padding: 24px;
+    text-align: center;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    color: #64748b;
+}
