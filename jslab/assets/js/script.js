@@ -91,7 +91,7 @@ console.log(`Total : ${total}`);
     console.log(!bloqueado);
 
 
-// exercicio -- Compra
+// Exercício — Compra
 
 const nomeProduto = 'Morango';
 const precoMorango = 10;
@@ -110,3 +110,29 @@ console.log(`Valor Final: ${valorFinal}`);
 console.log(typeof precoMorango);
 console.log(typeof disponibilidade);
 console.log(typeof valorFinal);
+
+
+// Decisões
+const nota= 55;
+const frequencia = true;
+if (nota >=60){
+    console.log("Aprovado");
+}
+else if (nota >= 50){
+    console.log("Na média");
+}
+else {
+    console.log("Reprovado");
+}
+
+if(nota >= 60 && frequencia){
+    console.log('Aprovado');
+}
+else if (nota >= 50 && frequencia){
+    console.log('Mediano');
+}
+else{
+    console.log('Reprovado');
+}
+
+// Exercício — Pedido prioritário
