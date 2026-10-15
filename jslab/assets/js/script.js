@@ -136,3 +136,36 @@ else{
 }
 
 // Exercício — Pedido prioritário
+const prioridade = 'alta';
+const atrasado = true;
+
+if (prioridade == 'alta' && atrasado){
+    console.log('ATENÇÃO IMEDIATA');
+}else{
+    console.log('Acompanhamento normal');
+}
+
+// Exercício — Situação de acesso
+const novaIdade = 18;
+const possuiCadastro = true;
+const estaBloqueado = false;
+
+if (novaIdade >=18 && possuiCadastro && estaBloqueado == false){
+    console.log('Acesso Aceito');
+} else if(novaIdade >=18 && possuiCadastro && estaBloqueado == true){
+    console.log('Acesso Bloqueado');
+} else if(novaIdade >=18 && possuiCadastro== false && estaBloqueado == false){
+    console.log('Acesso Negado, faça o seu cadastro');
+} else if(novaIdade < 18 && possuiCadastro && estaBloqueado == false){
+    console.log('Acesso Negado, Pessoa de menor');
+} else {
+    console.log('Acesso totalmente bloqueado!!');
+}
+
+// erros possuem informação
+// console.log(valorInexistente)
+
+// 
+console.log("Informação");
+console.warn("Atenção");
+console.error("Erro");
