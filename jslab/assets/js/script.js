@@ -165,7 +165,32 @@ if (novaIdade >=18 && possuiCadastro && estaBloqueado == false){
 // erros possuem informação
 // console.log(valorInexistente)
 
-// 
+//recursos de investigação do console 
 console.log("Informação");
 console.warn("Atenção");
 console.error("Erro");
+
+// desafio final
+const cliente = 'Jamily';
+let valor = 15;
+const qualPrioridade = 'Alta';
+const estaAtrasado = true;
+let valorDesconto = 0;
+
+if(valor > 20){
+    console.log(`Valor anterior: ${valor}`)
+    console.log(`Desconto de 10% adicionado a compra`);
+    valorDesconto =10;
+    valor /= valorDesconto;
+    console.log(`Valor com desconto: ${valor}`);
+} else {
+    console.log(`Sem desconto`);
+    console.log(`Valor a pagar: ${valor}`);
+}
+
+if (qualPrioridade == 'Alta'){
+    console.log(`pedido com prioridade alta`);
+} else{
+    console.log(`Pedido sem prioridade`);
+}
+
