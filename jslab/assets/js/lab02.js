@@ -37,11 +37,104 @@ for (i=1; i<=quantidadePedidos; i++){
     console.log(`Processando pedido ${i}`);
 }
 
-// 13. Exercício — Contagem regressiva
+// Exercício — Contagem regressiva
 let valor = 10;
 
 while (valor > 0){
     console.log(valor);
     valor -=1;
 }
-console.log(`fim`)
+console.log(`fim`);
+
+// Funcoes 
+function exibirSaudacao(){
+    console.log(`olá`);
+}
+exibirSaudacao();
+
+// parametros
+function exibirNome(seuNome){
+    console.log(seuNome);
+}
+
+exibirNome('Jamily');
+exibirNome('Miqueias');
+exibirNome('Analu');
+
+
+// retornando valores
+function calcularPreco(valor, quantidade){
+    return valor * quantidade;
+}
+let totalPedido= calcularPreco(20,3);
+console.log(totalPedido);
+
+totalPedido= calcularPreco(10.5,2);
+console.log(totalPedido);
+
+
+// Exercício — Desconto
+function calcularDesconto(valor, percentual) {
+    let desconto = valor * percentual;
+    return desconto + valor;
+}
+let desconto = calcularDesconto(120, 0.10);
+console.log(desconto);
+
+
+// Exercício — Situação acadêmica
+
+function verificarSituacao (nota, frequencia){
+    if (nota >= 60 && frequencia >= 75){
+        console.log(`Você passou`);
+    }
+    else if(nota <60 && frequencia >=75) {
+        console.log(`nota faltante`);
+    }
+    else if(nota >=60 && frequencia <75){
+        console.log(`frequencia faltante`);
+    }
+    else {
+        console.log(`Você reprovou`);
+    }
+}
+
+const nota1= verificarSituacao(65, 75);
+const nota2= verificarSituacao(65, 70);
+const nota3= verificarSituacao(50, 75);
+const nota4= verificarSituacao(50, 40);
+
+
+// escopo 
+function calcular() {
+    const resultado = 10 + 20;
+
+    console.log(resultado);
+}
+
+calcular();
+// console.log(resultado); 
+// variaveis fora do escopo não conseguem serem acessadas
+
+
+//  sintaxe moderna para funções.
+    // sintaxe 01;
+function somar(a, b) {
+    return a + b;
+}
+const somando= somar(2,3);
+console.log(somando);
+
+
+    // sintaxe 02;
+const somar02 = (a, b) => {
+return a + b;
+};
+console.log(somar02(1,2));
+
+
+    // sintaxe 03;
+const somar03 = (a, b) => a + b;
+console.log(somar03(5,7));
+
+
