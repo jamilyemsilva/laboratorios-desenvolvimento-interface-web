@@ -161,7 +161,7 @@ const resultado =
 
 console.log(resultado)
 
-// 
+//  branch de correcao usando breakpoint 
 function calcularMedia(
     nota1,
     nota2,
@@ -179,3 +179,79 @@ function calcularMedia(
 console.log(
     calcularMedia(70, 80, 90)
 );
+
+// Desafio — Faixa de temperatura
+function verificaTemperatura(temperatura){
+    if (temperatura <= -5){
+        console.log(`A temperatura ${temperatura} condiz a: Muito frio `);
+    } else if (temperatura <= 10){
+        console.log(`A temperatura ${temperatura} condiz a: Frio `);
+    } else if (temperatura >= 11 && temperatura <=19){
+        console.log(`A temperatura ${temperatura} condiz a: Agradável `);
+    } else if (temperatura >= 20 && temperatura<= 25){
+        console.log(`A temperatura ${temperatura} condiz a: Quente `);
+    } else{
+        console.log(`A temperatura ${temperatura} condiz a: Muito quente `);
+    }
+}
+
+const temperaturaMuitoBaixa = verificaTemperatura(-5); 
+const temperaturaBaixa = verificaTemperatura(5); 
+const temperaturaAgradavel = verificaTemperatura(12); 
+const temperaturaAlta = verificaTemperatura(20); 
+const temperaturaMuitoAlta = verificaTemperatura(29); 
+
+
+// Desafio — Processamento de pedidos
+function alterarValor(numeroPedido){
+    if (numeroPedido == 1){
+        return 20;
+    } else if (numeroPedido == 2){
+        return 30;
+    } else if (numeroPedido == 3){
+        return 40;
+    } else {
+        return 50;
+    }
+}
+
+function alterarQuantidade(quantidadePedido){
+    if (quantidadePedido == 1){
+        return 3;
+    } else if (quantidadePedido == 2){
+        return 5;
+    } else if (quantidadePedido == 3){
+        return 2;
+    } else {
+        return 1;
+    }
+}
+
+function calcularSubtotal(preco, quantidade){
+    return preco * quantidade;
+}
+function calcularDesconto( subtotal, valorDesconto){
+    return subtotal * valorDesconto / 100;
+}
+function calcularTotal(subtotal, desconto){
+    return subtotal - desconto;
+}
+function classificarPedido(total){
+    if(total <= 25){
+        console.log(`Valor baixo`);
+    }else if(total > 25 && total <= 100){
+        console.log(`Valor medio`);
+    } else{
+        console.log(`Valor alto`);
+    }
+}
+
+let pedidos = 1;
+while(pedidos <=4){   
+    
+    let subtotal = calcularSubtotal(alterarValor(pedidos), alterarQuantidade(pedidos));
+    let descontoPedido = calcularDesconto(subtotal, 50);
+    let totalDePedido = calcularTotal(subtotal, descontoPedido);
+    let classificacao = classificarPedido(totalDePedido);
+    pedidos ++
+}
