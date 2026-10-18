@@ -123,3 +123,94 @@ pedidos.forEach(pedido => {
 // somente quando precisar deixar o codigo mais claro
 
 
+// PROCESSANDO A COLEÇÃO
+
+// localizar pedidos
+const localizaPedido = pedidos.find(
+    pedido => pedido.id === 1043
+);
+const localizaPedidoInexistente = pedidos.find(
+    pedido => pedido.id === 9999
+);
+
+console.log(localizaPedido);
+console.log(localizaPedidoInexistente);
+
+//retorna posicaodo objeto
+const retornaIndice = pedidos.findIndex(
+    pedido => pedido.id === 1043
+);
+const retornaIndiceInexistente = pedidos.findIndex(
+    pedido => pedido.id === 9999
+);
+
+console.log(retornaIndice);
+console.log(retornaIndiceInexistente);
+
+//filtrar/apresenta todos os elemento condizentes de um condicao
+const statusAberto = pedidos.filter(
+    pedido => pedido.status === 'aberto'
+);
+
+console.log(statusAberto);
+
+
+// Exercicio - Filtrando por prioridade
+const filtrarPorPrioridade = pedidos.filter(
+    pedido => pedido.prioridade === "alta"
+);
+console.log(filtrarPorPrioridade);
+
+
+//transformar dados, forma de apresentação    
+const resumos = pedidos.map(
+    pedido => pedido.cliente
+); 
+console.log(resumos);
+
+// criando novos valores com map()
+const criandoResumos =
+    pedidos.map(pedido => {
+        return `${pedido.id} - ${pedido.cliente}`;
+    });
+
+console.log(criandoResumos);
+
+// includes
+const texto = "Clínica Central";
+const termo = "central";
+
+console.log(
+    texto.includes("Central")
+);
+
+console.log(
+    texto.includes("central")
+);
+
+console.log(
+    texto
+        .toLowerCase()
+        .includes(termo.toLowerCase())
+);
+
+
+// 35. Função de pesquisa
+function pesquisarPedidos(termo) {
+    const termoNormalizado =
+        termo.toLowerCase();
+
+    return pedidos.filter(pedido =>{
+        if (pedido.cliente.toLowerCase().includes(termoNormalizado)|| 
+            pedido.status.toLowerCase().includes(termoNormalizado) || 
+            pedido.prioridade.toLowerCase().includes(termoNormalizado)
+        ){
+                return true;
+        } else{
+            return false;
+        }}
+    );
+}
+
+const testeCliente = pesquisarPedidos("Aberto");
+console.log(testeCliente);
