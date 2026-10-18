@@ -81,7 +81,7 @@ const pedidos = [
     {
         id: 1043,
         cliente: "Loja Horizonte",
-        prioridade: "normal",
+        prioridade: "baixa",
         status: "aberto",
         valor: 420
     },
@@ -214,3 +214,145 @@ function pesquisarPedidos(termo) {
 
 const testeCliente = pesquisarPedidos("Aberto");
 console.log(testeCliente);
+
+
+// ordenaçao com sort 
+    //é importante criar uma copia antes de ordenar pois o sort muda a array original
+const pedidosOrdenados =[
+    ...pedidos
+];
+
+pedidosOrdenados.sort(
+    (a,b) => a.valor - b.valor
+);
+
+console.log(pedidos);
+console.log(pedidosOrdenados);
+
+
+// ordenação crescente
+const pedidosOrdenadosCrescentes = [
+    ...pedidos
+];
+
+pedidosOrdenadosCrescentes.sort(
+    (a, b) => a.valor - b.valor
+);
+console.log(pedidosOrdenadosCrescentes);
+
+// ordenação decrescente
+const pedidosOrdenadosDescrente= [
+    ...pedidos
+]; 
+
+pedidosOrdenadosDescrente.sort(
+    (a,b) => b.valor - a.valor
+);
+console.log(pedidosOrdenadosDescrente);
+
+// ordenando textos
+const porCliente = [
+    ...pedidos
+];
+
+porCliente.sort(
+    (a,b) => a.cliente.localeCompare(b.cliente)
+);
+
+console.log(porCliente);
+
+
+// Funções de ordenação
+
+function ordValorCrescente(array, parametro){
+    const valorCrescente =[
+        ...array
+    ];
+
+    valorCrescente.sort(
+        (a, b) => a[parametro] - b[parametro]
+    );
+
+    return valorCrescente;
+};
+
+function ordValorDecrescente(array, parametro) {
+    const valorDecrescente = [...array];
+
+    valorDecrescente.sort(
+        (a, b) => b[parametro] - a[parametro]
+    );
+
+    return valorDecrescente;
+};
+
+function ordNomeCliente(array, parametro){
+    const nomeCliente = [
+        ...array
+    ];
+
+    nomeCliente.sort(
+        (a, b) => a[parametro].localeCompare(b[parametro])
+    );
+
+    return nomeCliente;
+};
+
+let ordenacao = ordNomeCliente(pedidos, "cliente");
+console.log(ordenacao);
+
+
+// Combinando operações
+const resultado =
+    pedidos
+        .filter(
+            pedido => pedido.status === "aberto"
+        )
+        .filter(
+            pedido => pedido.valor <= 500
+        );
+
+console.log(resultado);
+
+// Exercício — Processamento completo
+function processamentoCompleto(array, prioridadeDesejada, valorMinimo){
+    const pedidosFiltrados = array.filter(pedido => {
+        return (
+            pedido.prioridade === prioridadeDesejada && 
+            pedido.valor >= valorMinimo
+        );
+    });
+    pedidosFiltrados.sort((a, b) => a.valor - b.valor);
+
+    return pedidosFiltrados;
+};
+
+const prioridadeBaixa = processamentoCompleto(pedidos, "baixa", 400);
+console.log(prioridadeBaixa);
+// Evite armazenar: valor: "R$ 850,00" se quer utilizar em calculos, prefira valor:850
+
+// Introdução a Intl
+// recursos de formatacaao de valores para a exibição de tais
+const formatadorMoeda =
+    new Intl.NumberFormat(
+        "pt-BR",
+        {
+            style: "currency",
+            currency: "BRL"
+        }
+    );
+
+console.log(
+    formatadorMoeda.format(850)
+);
+
+pedidos.forEach(pedido => {
+    const valorFormatado =
+        formatadorMoeda.format(
+            pedido.valor
+        );
+
+    console.log(
+        `${pedido.cliente} - ${valorFormatado}`
+    );
+});
