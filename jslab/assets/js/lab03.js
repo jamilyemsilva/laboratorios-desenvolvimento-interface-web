@@ -231,13 +231,6 @@ console.log(pedidosOrdenados);
 
 
 // ordenação crescente
-const pedidosOrdenadosCrescentes = [
-    ...pedidos
-];
-
-pedidosOrdenadosCrescentes.sort(
-    (a, b) => a.valor - b.valor
-);
 console.log(pedidosOrdenadosCrescentes);
 
 // ordenação decrescente

@@ -74,7 +74,6 @@ lista.append(paragrafo);
     // serão importantes para renderizar dados.
 paragrafo.remove();
 
-
     // Criando um card
     // ideia básica
 const artigo = 
@@ -168,4 +167,3 @@ function renderizarPedidos(listaPedidos){
 // terminar 25
 
 renderizarPedidos(pedidos);
-
