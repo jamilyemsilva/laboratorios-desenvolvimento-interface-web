@@ -5,7 +5,7 @@ console.log(resumo);
 
 resumo.textContent =
 ` ${pedidos.length} pedidos encontrados`;
-// para alterar o conteúdo textual de um elemento - bnesse caso, do id resumo.
+// para alterar o conteúdo textual de um elemento - nesse caso, do id resumo.
 
 // outro exemplo 
 // let titulo =
@@ -91,79 +91,67 @@ lista.append(artigo);
 // o artigo com o titulo dentro vai ser adicionado a lista
 
 
-    // Função de renderização
-function renderizarPedidos(listaPedidos){
-    const lista = 
+    // funcao formatar valor em moeda
+function formatarMoeda(valor){
+    return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(valor); 
+}
+
+    // funcao criar card pedido
+function criarCardPedido(pedido){
+    const artigo = document.createElement("article");
+
+    const titulo = document.createElement("h2");
+    const codigo = document.createElement("p");
+    const cliente = document.createElement("p");
+    const categoria = document.createElement("p");
+    const prioridade = document.createElement("p");
+    const status = document.createElement("p");
+    const valor = document.createElement("p");
+
+    titulo.textContent = `PS-${pedido.id}`;
+    codigo.textContent = `código: ${pedido.id}`;
+    cliente.textContent = `cliente: ${pedido.cliente}`;
+    categoria.textContent = `categoria: ${pedido.categoria}`;
+    prioridade.textContent = `prioridade: ${pedido.prioridade}`;
+    status.textContent = `status: ${pedido.status}`;
+    valor.textContent = `valor: ${formatarMoeda(pedido.valor)}`;
+
+    artigo.append(
+        titulo, 
+        codigo, 
+        cliente, 
+        categoria, 
+        prioridade, 
+        status, 
+        valor
+    );
+
+    return artigo;
+}
+
+    // funcao de renderização
+function renderizarPedidos(listaPedidos) {
+
+    const lista =
         document.querySelector(
             "#lista-pedidos"
         );
 
     lista.textContent = "";
-    // Antes de uma nova renderização, removemos o conteúdo 
-    // anterior para evitar acumular versões antigas dos
-    //  resultados.
 
-    listaPedidos.forEach(pedido => {
-        const artigo =
-            document.createElement("article");
-
-        const titulo = 
-            document.createElement("h3");
-
-        const codigo =
-            document.createElement("p");
-
-        const cliente = 
-            document.createElement("p");
-        
-        const categoria = 
-            document.createElement("p");
-        
-        const prioridade = 
-            document.createElement("p");
-        
-        const status = 
-            document.createElement("p");
-        
-        const valor = 
-            document.createElement("p");
-        
-        const formatadorMoeda = new Intl.NumberFormat("pt-BR", {
-            style: "currency",
-            currency: "BRL"
+    if (listaPedidos.length == 0){
+        lista.textContent = `Nenhum pedido encontrado.`;
+        return;
+    } else{
+        listaPedidos.forEach(pedido => {
+            const card = criarCardPedido(pedido);
+            lista.append(card);
         });
-
-        titulo.textContent =
-            `PS-${pedido.id}`;
-
-        codigo.textContent =
-            `codigo: ${pedido.codigo}`;
-
-        cliente.textContent =
-            `cliente: ${pedido.cliente}`;
-
-        categoria.textContent =
-            `categoria: ${pedido.categoria}`;
-
-        prioridade.textContent =
-            `prioridade: ${pedido.prioridade}`;
-
-        status.textContent =
-            `status: ${pedido.status}`;
-
-        valor.textContent =
-            `valor: ${formatadorMoeda.format(Number(pedido.valor))}`;
-
-        artigo.append(titulo);
-        artigo.append(codigo);
-        artigo.append(cliente);
-        artigo.append(categoria);
-        artigo.append(prioridade);
-        artigo.append(status);
-        artigo.append(valor);
-        lista.append(artigo);
-    });
-}
-// terminar 25
+        return lista;
+    }
+}   
 
 renderizarPedidos(pedidos);
