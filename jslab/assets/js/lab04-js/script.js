@@ -64,30 +64,30 @@ console.log(paragrafo);
 
     // Inserindo no documento
     // Agora o elemento aparece na página.
-const lista =
-    document.querySelector("#lista-pedidos");
-lista.append(paragrafo);
+// const lista =
+//     document.querySelector("#lista-pedidos");
+// lista.append(paragrafo);
 
 
-    // Removendo elementos
-    // Criação e remoção dinâmica 
-    // serão importantes para renderizar dados.
-paragrafo.remove();
+//     // Removendo elementos
+//     // Criação e remoção dinâmica 
+//     // serão importantes para renderizar dados.
+// paragrafo.remove();
 
-    // Criando um card
-    // ideia básica
-const artigo = 
-    document.createElement("article");
+//     // Criando um card
+//     // ideia básica
+// const artigo = 
+//     document.createElement("article");
 
-const titulo = 
-    document.createElement("h3");
+// const titulo = 
+//     document.createElement("h3");
 
-titulo.textContent =
-    "Pedido PS-1042";
+// titulo.textContent =
+//     "Pedido PS-1042";
 
-artigo.append(titulo); 
-// o titulo vai ser adicionado ao artigo
-lista.append(artigo);
+// artigo.append(titulo); 
+// // o titulo vai ser adicionado ao artigo
+// lista.append(artigo);
 // o artigo com o titulo dentro vai ser adicionado a lista
 
 
@@ -110,6 +110,7 @@ function criarCardPedido(pedido){
     const prioridade = document.createElement("p");
     const status = document.createElement("p");
     const valor = document.createElement("p");
+    const botao = document.createElement("button");
 
     titulo.textContent = `PS-${pedido.id}`;
     codigo.textContent = `código: ${pedido.id}`;
@@ -118,6 +119,10 @@ function criarCardPedido(pedido){
     prioridade.textContent = `prioridade: ${pedido.prioridade}`;
     status.textContent = `status: ${pedido.status}`;
     valor.textContent = `valor: ${formatarMoeda(pedido.valor)}`;
+    botao.textContent = `Ver detalhes`;
+    // botao.setAttribute("data-id", pedido.id);
+    botao.dataset.id = pedido.id;
+    botao.dataset.acao = `Detalhes`;
 
     artigo.append(
         titulo, 
@@ -126,18 +131,19 @@ function criarCardPedido(pedido){
         categoria, 
         prioridade, 
         status, 
-        valor
+        valor,
+        botao
     );
 
     return artigo;
 }
 
     // funcao de renderização
-function renderizarPedidos(listaPedidos) {
+function renderizarPedidos(listaPedidos, localRenderizacao) {
 
     const lista =
         document.querySelector(
-            "#lista-pedidos"
+            localRenderizacao
         );
 
     lista.textContent = "";
@@ -154,4 +160,92 @@ function renderizarPedidos(listaPedidos) {
     }
 }   
 
-renderizarPedidos(pedidos);
+renderizarPedidos(pedidos, "#lista-pedidos");
+
+
+
+
+// --- Eventos e Interações ---
+
+    // Eventos
+// a resposta do js a ações como: cliques, digitação, 
+// alteração de campos, envio de formulário e movimento do ponteiro
+
+    // addEventListener()
+const botao = document.querySelector(`#botao-teste`);
+
+botao.addEventListener(
+    "click",
+    () => {
+        console.log(`Botão Clicado`);
+    }
+    // ao clicarmos, o nosso ouvidor de evntos vai disparar o que pedimos,
+    // nesse caso, vaia presentar no console a texto "Botão clicado"
+);
+
+    // Relacionando interface e dados
+//  precisaremos saber ao o que o botao clicado corresponde, por exemplo, 
+// a qual pedido. Portanto, vamos usar atributos personalizados do HTML
+    // data-* 
+    // atribue algo a determinado conteudo para que indentifiquemos ele e assim possamos
+    // por exemplo, diferenciar a que esse botao está vinculado
+
+    // Em vez de depender de um listener criado manualmente para cada botão, 
+    // podemos ouvir os cliques no container: Observe o elemento que originou o evento.
+const lista =
+    document.querySelector(
+        "#lista-pedidos"
+    );
+
+lista.addEventListener(
+    "click",
+    event => {
+        console.log(event.target);
+    }
+);
+
+    // closest()
+    // Queremos identificar se o clique ocorreu em um elemento relacionado a uma ação.
+lista.addEventListener(
+    "click",
+    event => {
+
+        const botao =
+            event.target.closest(
+                "[data-acao]"
+            );
+
+        if (!botao) {
+            return;
+        }
+
+        console.log(botao.dataset);
+    }
+);
+// atingue somente elementos com "data-acao" como atributo
+
+
+    //Busca na Interface
+    
+// function buscarPedido(listaPedidos, termo){ 
+//     const termoFormatado = termo.toLowerCase().trim();
+
+//     return listaPedidos.filter(pedido => {
+//         return pedido.categoria.toLowerCase().includes(termoFormatado);
+//     }); 
+// }
+
+
+const campoBusca = document.querySelector(`#campo-busca`);
+// com base em um input feito no html, capturamos ele e colocamos um ouvidor de eventos 
+// especificando o input e, de acordo com isso, manipulamos ele
+campoBusca.addEventListener(
+    `input`,
+    () => {
+        const termo = campoBusca.value;
+        const pedidosFiltrados = buscarPedido(pedidos, termo);
+        renderizarPedidos(pedidosFiltrados);
+    }
+) 
+
+
