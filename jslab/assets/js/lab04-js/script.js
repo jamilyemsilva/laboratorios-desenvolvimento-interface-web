@@ -110,7 +110,7 @@ function criarCardPedido(pedido){
     const prioridade = document.createElement("p");
     const status = document.createElement("p");
     const valor = document.createElement("p");
-    const botao = document.createElement("button");
+    const link = document.createElement("a");
 
     titulo.textContent = `PS-${pedido.id}`;
     codigo.textContent = `código: ${pedido.id}`;
@@ -119,10 +119,10 @@ function criarCardPedido(pedido){
     prioridade.textContent = `prioridade: ${pedido.prioridade}`;
     status.textContent = `status: ${pedido.status}`;
     valor.textContent = `valor: ${formatarMoeda(pedido.valor)}`;
-    botao.textContent = `Ver detalhes`;
+    link.textContent = `Ver detalhes`;
     // botao.setAttribute("data-id", pedido.id);
-    botao.dataset.id = pedido.id;
-    botao.dataset.acao = `Detalhes`;
+    link.href = `detalhes.html?id=${pedido.id}`;
+    link.dataset.id = pedido.id;
 
     artigo.append(
         titulo, 
@@ -132,7 +132,7 @@ function criarCardPedido(pedido){
         prioridade, 
         status, 
         valor,
-        botao
+        link
     );
 
     return artigo;
@@ -224,9 +224,7 @@ lista.addEventListener(
 );
 // atingue somente elementos com "data-acao" como atributo
 
-
-    //Busca na Interface
-    
+//Busca na Interface    
 function buscarPedido(listaPedidos, termo){ 
     const termoFormatado = termo.toLowerCase();
         // se possui {}, tem que apresnetar o return dentro dela tbm 
