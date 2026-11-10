@@ -37,7 +37,13 @@
                 type="search"
                 placeholder="Digite um cliente, status ou prioridade"
             >
-            <div id="pedidos-buscados"></div>
+
+            <label for="ordenacao">Ordenar</label>
+
+            <select id="ordenacao">
+                <option value="cliente">Cliente</option>
+                <option value="valor-crescente">Menor valor</option>
+            </select>
 
             <div id="lista-pedidos"></div>
 

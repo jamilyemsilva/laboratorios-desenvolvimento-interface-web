@@ -160,7 +160,7 @@ function renderizarPedidos(listaPedidos, localRenderizacao) {
     }
 }   
 
-renderizarPedidos(pedidos, "#lista-pedidos");
+// renderizarPedidos(pedidos, "#lista-pedidos");
 
 
 
@@ -227,25 +227,88 @@ lista.addEventListener(
 
     //Busca na Interface
     
-// function buscarPedido(listaPedidos, termo){ 
-//     const termoFormatado = termo.toLowerCase().trim();
+function buscarPedido(listaPedidos, termo){ 
+    const termoFormatado = termo.toLowerCase();
+        // se possui {}, tem que apresnetar o return dentro dela tbm 
+    if (termoFormatado.length === 0){
+        return listaPedidos;
+    }
 
-//     return listaPedidos.filter(pedido => {
-//         return pedido.categoria.toLowerCase().includes(termoFormatado);
-//     }); 
-// }
+    return listaPedidos.filter(pedido => {
+        return pedido.status.toLowerCase().includes(termoFormatado) ||
+               pedido.cliente.toLowerCase().includes(termoFormatado) ||
+               pedido.prioridade.toLowerCase().includes(termoFormatado);
+    }); 
+}
+// o includes() procura o termo, mesmo que digite apenas o soft do termo software
 
+
+// cliente, valor crescente, valor decrescente
+function ordValorCrescente(array, parametro){
+    const valorCrescente =[
+        ...array
+    ];
+    
+    valorCrescente.sort(
+        (a, b) => a[parametro] - b[parametro]
+    );
+    
+    return valorCrescente;
+};
+
+function ordValorDecrescente(array, parametro) {
+    const valorDecrescente = [...array];
+    
+    valorDecrescente.sort(
+        (a, b) => b[parametro] - a[parametro]
+    );
+    
+    return valorDecrescente;
+};
+
+function ordNomeCliente(array, parametro){
+    const nomeCliente = [
+        ...array
+    ];
+    
+    nomeCliente.sort(
+        (a, b) => a[parametro].localeCompare(b[parametro])
+    );
+    
+    return nomeCliente;
+};
 
 const campoBusca = document.querySelector(`#campo-busca`);
 // com base em um input feito no html, capturamos ele e colocamos um ouvidor de eventos 
 // especificando o input e, de acordo com isso, manipulamos ele
-campoBusca.addEventListener(
-    `input`,
-    () => {
-        const termo = campoBusca.value;
-        const pedidosFiltrados = buscarPedido(pedidos, termo);
-        renderizarPedidos(pedidosFiltrados);
+const selectOrdenacao = document.querySelector(`#ordenacao`);
+
+// Recebe uma lista e DEVOLVE ela ordenada (não desenha nada)
+function ordenarPedidos(lista) {
+    const criterio = selectOrdenacao.value;
+
+    if (criterio === "cliente") {
+        return ordNomeCliente(lista, "cliente");
+    } else if (criterio === "valor-crescente") {
+        return ordValorCrescente(lista, "valor");
+    } else if (criterio === "valor-decrescente") {
+        return ordValorDecrescente(lista, "valor");
     }
-) 
 
+    return lista;
+}
 
+// A ÚNICA função que atualiza a tela
+function atualizarVisualizacao() {
+    const termo = campoBusca.value;
+    const filtrados = buscarPedido(pedidos, termo);   // 1. busca
+    const ordenados = ordenarPedidos(filtrados);      // 2. ordenação
+
+    renderizarPedidos(ordenados, `#lista-pedidos`);   // 3. desenha
+}
+
+campoBusca.addEventListener(`input`, atualizarVisualizacao);
+selectOrdenacao.addEventListener(`change`, atualizarVisualizacao);
+
+// Desenha a tela na primeira vez
+atualizarVisualizacao();
