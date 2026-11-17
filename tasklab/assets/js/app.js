@@ -1,6 +1,7 @@
 console.log(`TaskLab iniciado.`);
 
 let tarefas = [];
+let idEmEdicao = null;
 
 const formulario = document.querySelector(`#form-tarefa`);
 const campoTitulo = document.querySelector("#titulo");
@@ -10,6 +11,10 @@ const campoData = document.querySelector("#data");
 const mensagemFormulario = document.querySelector("#mensagem-formulario");
 const resumoTarefas = document.querySelector("#resumo-tarefas");
 const listaTarefas = document.querySelector("#lista-tarefas");
+const tituloFormulario = document.querySelector("#titulo-formulario");
+const botaoSalvar = document.querySelector("#botao-salvar");
+const botaoCancelar = document.querySelector("#botao-cancelar");
+
 
 function gerarProximoId() {
     if (tarefas.length === 0) {
@@ -117,7 +122,14 @@ function renderizarTarefas(listaTarefas, localRenderizacao){
         const cardTarefa = criarCardTarefa(tarefa);
         lista.append(cardTarefa);
     });
+}
 
+function restaurarFormulario(){
+    idEmEdicao = null;
+    formulario.reset();
+    tituloFormulario.textContent = "Nova tarefa";
+    botaoSalvar.textContent = "Salvar tarefa";
+    botaoCancelar.hidden = true;
 
 }
 
@@ -134,21 +146,37 @@ formulario.addEventListener("submit", event => {
         return;
     } 
 
-    const novaTarefa = {
-        id: gerarProximoId(),
-        titulo,
-        descricao,
-        prioridade,
-        data,
-        concluida: false
-    };
+    if(idEmEdicao === null){
+        const novaTarefa = {
+            id: gerarProximoId(),
+            titulo,
+            descricao,
+            prioridade,
+            data,
+            concluida: false
+        };
+    
+        tarefas.push(novaTarefa);
+        renderizarTarefas(tarefas, "#lista-tarefas");
+        mensagemFormulario.textContent = "Tarefa cadastrada com sucesso!";
+    }else{
+        const indice = tarefas.findIndex(
+            tarefa => tarefa.id === idEmEdicao
+        );
+        const tarefaEditada= {
+            ...tarefas[indice],
+            titulo : titulo,
+            descricao : descricao,
+            prioridade: prioridade,
+            data : data,
+        } 
 
-    tarefas.push(novaTarefa);
-    renderizarTarefas(tarefas, "#lista-tarefas");
-    formulario.reset();
-    mensagemFormulario.textContent = "Tarefa cadastrada com sucesso!";
+        tarefas[indice]=tarefaEditada;
+        renderizarTarefas(tarefas, "#lista-tarefas");
+        mensagemFormulario.textContent = "Tarefa editada com sucesso!";    
     }
-);
+    restaurarFormulario();
+});
 
 listaTarefas.addEventListener("click", event =>{
     const botao = event.target.closest("[data-acao]")
@@ -162,8 +190,29 @@ listaTarefas.addEventListener("click", event =>{
         tarefa => tarefa.id === id
     );
 
-    if (botao.dataset.acao == "concluir"){
+    if (botao.dataset.acao === "concluir"){
         tarefa.concluida = !tarefa.concluida;
         renderizarTarefas(tarefas, "#lista-tarefas");
+    } else if (botao.dataset.acao === "editar"){
+        idEmEdicao = id;
+        campoTitulo.value = tarefa.titulo;
+        campoDescricao.value = tarefa.descricao;
+        campoPrioridade.value = tarefa.prioridade;
+        campoData.value = tarefa.data;
+
+        const tituloFormulario = document.querySelector("#titulo-formulario");
+        const botaoSalvar = document.querySelector("#botao-salvar");
+        const botaoCancelar = document.querySelector("#botao-cancelar");
+
+        tituloFormulario.textContent = `Editar Tarefa ${idEmEdicao}`;
+        botaoSalvar.textContent = "Salvar edições";
+        botaoCancelar.hidden = false;
+        mensagemFormulario.textContent = "";
+        
     }
+});
+
+botaoCancelar.addEventListener("click", () =>{
+    restaurarFormulario();
+    mensagemFormulario.textContent = "";
 });
