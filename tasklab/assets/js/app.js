@@ -9,6 +9,7 @@ const campoPrioridade = document.querySelector("#prioridade");
 const campoData = document.querySelector("#data");
 const mensagemFormulario = document.querySelector("#mensagem-formulario");
 const resumoTarefas = document.querySelector("#resumo-tarefas");
+const listaTarefas = document.querySelector("#lista-tarefas");
 
 function gerarProximoId() {
     if (tarefas.length === 0) {
@@ -55,22 +56,25 @@ function criarCardTarefa(tarefa){
     descricao.textContent =tarefa.descricao;
     prioridade.textContent =tarefa.prioridade;
     data.textContent =tarefa.data;
-    if (tarefa.concluida){
-        situacao.textContent = "Concluída";
-    } else{
-        situacao.textContent = "Pendente";
-    }
     btnConcluir.textContent = "Concluir";
     btnConcluir.dataset.acao = "concluir";
     btnConcluir.dataset.id = tarefa.id;
-
+    
     btnEditar.textContent = "Editar";
     btnEditar.dataset.acao = "editar";
     btnEditar.dataset.id = tarefa.id;
-
+    
     btnExcluir.textContent = "Excluir";
     btnExcluir.dataset.acao = "excluir";
     btnExcluir.dataset.id = tarefa.id;
+
+    if (tarefa.concluida){
+        situacao.textContent = "Concluída";
+        card.classList.add("tarefa-concluida");
+        btnConcluir.textContent = "Reabrir"
+    } else{
+        situacao.textContent = "Pendente";
+    }
 
     const acoes = document.createElement("div");
     acoes.classList.add("tarefa-acoes");
@@ -145,3 +149,21 @@ formulario.addEventListener("submit", event => {
     mensagemFormulario.textContent = "Tarefa cadastrada com sucesso!";
     }
 );
+
+listaTarefas.addEventListener("click", event =>{
+    const botao = event.target.closest("[data-acao]")
+
+    if (!botao) {
+        return;
+    }
+
+    const id = Number(botao.dataset.id);
+    const tarefa = tarefas.find(
+        tarefa => tarefa.id === id
+    );
+
+    if (botao.dataset.acao == "concluir"){
+        tarefa.concluida = !tarefa.concluida;
+        renderizarTarefas(tarefas, "#lista-tarefas");
+    }
+});
