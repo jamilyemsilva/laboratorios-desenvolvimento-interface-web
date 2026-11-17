@@ -209,6 +209,22 @@ listaTarefas.addEventListener("click", event =>{
         botaoCancelar.hidden = false;
         mensagemFormulario.textContent = "";
         
+    } else if(botao.dataset.acao === "excluir"){
+        const indice = tarefas.findIndex(
+            tarefa => tarefa.id === id);
+        
+        const confirmou = window.confirm(
+            "Deseja excluir esta tarefa?"
+        );
+        if(!confirmou){
+            return;
+        }   
+        tarefas.splice(indice, 1); 
+        renderizarTarefas(tarefas, "#lista-tarefas");
+        if(idEmEdicao === id){
+            restaurarFormulario();
+        }
+        mensagemFormulario.textContent= "Tarefa excluída com sucesso!";
     }
 });
 
