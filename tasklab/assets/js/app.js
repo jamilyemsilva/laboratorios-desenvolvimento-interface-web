@@ -232,3 +232,67 @@ botaoCancelar.addEventListener("click", () =>{
     restaurarFormulario();
     mensagemFormulario.textContent = "";
 });
+
+
+// PERSISTENCIA DE DADOS LAB 14 
+// JSON.stringify() transforma dados JavaScript em uma representação textual.
+// const tarefa = {
+//     id: 1,
+//     titulo: "Estudar JavaScript",
+//     concluida: false
+// };
+
+// const texto1 =
+//     JSON.stringify(tarefa);
+
+// console.log(texto1);
+
+// console.log(
+//     typeof texto1
+// );
+
+// Arrays também podem ser convertidos
+// const tarefasTeste = [
+//     {
+//         id: 1,
+//         titulo: "Estudar JavaScript"
+//     },
+//     {
+//         id: 2,
+//         titulo: "Revisar exercício"
+//     }
+// ];
+
+// const texto2 =
+//     JSON.stringify(
+//         tarefasTeste
+//     );
+
+// console.log(texto2);
+
+// const dados =
+//     JSON.parse(texto2);
+
+// console.log(dados);
+
+// console.log(
+//     Array.isArray(dados)
+// );
+
+
+function salvarTarefas() {
+
+    const dados =
+        JSON.stringify(tarefas);
+
+    localStorage.setItem(
+        "tasklab:tarefas",
+        dados
+    );
+}
+
+salvarTarefas();
+
+localStorage.getItem(
+    "tasklab:tarefas"
+);
