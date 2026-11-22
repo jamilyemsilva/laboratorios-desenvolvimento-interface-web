@@ -1,6 +1,6 @@
 console.log(`TaskLab iniciado.`);
 
-let tarefas = [];
+let tarefas = carregarTarefas();
 let idEmEdicao = null;
 
 const formulario = document.querySelector(`#form-tarefa`);
@@ -281,18 +281,22 @@ botaoCancelar.addEventListener("click", () =>{
 
 
 function salvarTarefas() {
+    // transforma os dados guardados na array em JSON para serem guardados nno local storage
+    const dados = JSON.stringify(tarefas);
 
-    const dados =
-        JSON.stringify(tarefas);
-
-    localStorage.setItem(
-        "tasklab:tarefas",
-        dados
-    );
+    // guarda no local storage 
+    localStorage.setItem("tasklab:tarefas",dados);
 }
 
-salvarTarefas();
+function carregarTarefas(){
+    const dados = localStorage.getItem("tasklab:tarefas");
 
-localStorage.getItem(
-    "tasklab:tarefas"
-);
+    if(!dados){
+        return[];
+    }
+    // transforma os dados guardados no localstorage em uma array novamente 
+    return JSON.parse(dados);
+    }
+
+renderizarTarefas(tarefas, "#lista-tarefas");
+
