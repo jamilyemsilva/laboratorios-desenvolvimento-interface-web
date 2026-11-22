@@ -305,3 +305,41 @@ function atualizarAplicacao(){
 
 renderizarTarefas(tarefas, "#lista-tarefas");
 
+function carregarTarefas() {
+
+    const dados =
+        localStorage.getItem(
+            "tasklab:tarefas"
+        );
+
+    if (!dados) {
+        return [];
+    }
+
+    try {
+
+        const tarefasSalvas =
+            JSON.parse(dados);
+
+        if (!Array.isArray(
+            tarefasSalvas
+        )) {
+            return [];
+        }
+
+        return tarefasSalvas;
+
+    } catch (erro) {
+
+        console.error(
+            "Não foi possível carregar as tarefas.",
+            erro
+        );
+
+        return [];
+    }
+}
+    // se quiser remover toda a lista de tarefas
+// localStorage.removeItem(
+//     "tasklab:tarefas"
+// );
