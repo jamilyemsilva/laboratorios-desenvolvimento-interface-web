@@ -157,7 +157,7 @@ formulario.addEventListener("submit", event => {
         };
     
         tarefas.push(novaTarefa);
-        renderizarTarefas(tarefas, "#lista-tarefas");
+        atualizarAplicacao();
         mensagemFormulario.textContent = "Tarefa cadastrada com sucesso!";
     }else{
         const indice = tarefas.findIndex(
@@ -172,7 +172,7 @@ formulario.addEventListener("submit", event => {
         } 
 
         tarefas[indice]=tarefaEditada;
-        renderizarTarefas(tarefas, "#lista-tarefas");
+        atualizarAplicacao();
         mensagemFormulario.textContent = "Tarefa editada com sucesso!";    
     }
     restaurarFormulario();
@@ -192,7 +192,7 @@ listaTarefas.addEventListener("click", event =>{
 
     if (botao.dataset.acao === "concluir"){
         tarefa.concluida = !tarefa.concluida;
-        renderizarTarefas(tarefas, "#lista-tarefas");
+        atualizarAplicacao();
     } else if (botao.dataset.acao === "editar"){
         idEmEdicao = id;
         campoTitulo.value = tarefa.titulo;
@@ -220,7 +220,7 @@ listaTarefas.addEventListener("click", event =>{
             return;
         }   
         tarefas.splice(indice, 1); 
-        renderizarTarefas(tarefas, "#lista-tarefas");
+        atualizarAplicacao();
         if(idEmEdicao === id){
             restaurarFormulario();
         }
@@ -281,7 +281,7 @@ botaoCancelar.addEventListener("click", () =>{
 
 
 function salvarTarefas() {
-    // transforma os dados guardados na array em JSON para serem guardados nno local storage
+    // transforma os dados guardados na array em JSON para serem guardados no local storage
     const dados = JSON.stringify(tarefas);
 
     // guarda no local storage 
@@ -297,6 +297,11 @@ function carregarTarefas(){
     // transforma os dados guardados no localstorage em uma array novamente 
     return JSON.parse(dados);
     }
+
+function atualizarAplicacao(){
+    salvarTarefas();
+    renderizarTarefas(tarefas, "#lista-tarefas");
+}
 
 renderizarTarefas(tarefas, "#lista-tarefas");
 
