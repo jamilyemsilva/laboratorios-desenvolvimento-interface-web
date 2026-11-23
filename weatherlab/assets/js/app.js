@@ -15,10 +15,6 @@ if (!("geolocation" in navigator)) {
     botaoLocalizacao.disabled =true;
 }
 
-function carregarClima(){
-
-}
-
 function sucessoLocalizacao(posicao){
     console.log("Objeto completo:", posicao);
 
@@ -34,15 +30,15 @@ function sucessoLocalizacao(posicao){
 
 function erroLocalizacao(erro){
     console.error("Código do erro:", erro.code, erro.message);
-
+    botaoLocalizacao.disabled = true;
     if (erro.code === 1) {
-    mensagemStatus.textContent = "Permissão de localização negada pelo usuário.";
+        mostrarMensagem("Permissão de localização negada pelo usuário.");
     } else if (erro.code === 2) {
-    mensagemStatus.textContent = "Localização indisponível no momento.";
+        mostrarMensagem("Localização indisponível no momento.");
     } else if (erro.code === 3) {
-    mensagemStatus.textContent = "Tempo excedido ao tentar obter localização.";
+        mostrarMensagem("Tempo excedido ao tentar obter localização.");
     } else {
-    mensagemStatus.textContent = "Não foi possível obter sua localização.";
+        mostrarMensagem("Não foi possível obter sua localização.");
     }
 }
 
@@ -59,6 +55,10 @@ function renderizarClima(dados, latitude, longitude) {
   resultado.hidden = false;
 }
 
+function mostrarMensagem(texto){
+    mensagemStatus.textContent = texto;
+}
+
 const opcoesLocalizacao = {
     enableHighAccuracy: false,
     timeout: 10000,
@@ -68,6 +68,9 @@ const opcoesLocalizacao = {
 botaoLocalizacao.addEventListener(
     "click",
     () => {
+        botaoLocalizacao.disabled = true;
+        mostrarMensagem("Obtendo localização...");
+        
         navigator.geolocation.getCurrentPosition(
                 sucessoLocalizacao,
                 erroLocalizacao,
@@ -78,35 +81,44 @@ botaoLocalizacao.addEventListener(
 // Passos 27 a 35: Buscando dados na API externa
 async function carregarClima(latitude, longitude) {
   // Passo 28: Construindo os parâmetros de consulta
-  const parametros = new URLSearchParams({
-    latitude: latitude,
-    longitude: longitude,
-    current:
-      "temperature_2m," +
-      "apparent_temperature," +
-      "relative_humidity_2m," +
-      "weather_code," +
-      "wind_speed_10m",
-    timezone: "auto"
-  });
+    try{
+        const parametros = new URLSearchParams({
+        latitude: latitude,
+        longitude: longitude,
+        current:
+            "temperature_2m," +
+            "apparent_temperature," +
+            "relative_humidity_2m," +
+            "weather_code," +
+            "wind_speed_10m",
+        timezone: "auto"
+        });
 
-  // Passo 29: Montando a URL completa
-  const url = `https://api.open-meteo.com/v1/forecast?${parametros}`;
+        // Passo 29: Montando a URL completa
+        const url = `https://api.open-meteo.com/v1/forecast?${parametros}`;
 
-  // Passos 30 e 31: Fazendo a requisição HTTP e aguardando a resposta
-  const resposta = await fetch(url);
-  console.log("Resposta HTTP:", resposta);
+        // Passos 30 e 31: Fazendo a requisição HTTP e aguardando a resposta
+        const resposta = await fetch(url);
+        console.log("Resposta HTTP:", resposta);
 
-  // Passo 33: Verificando se a requisição foi bem-sucedida (status 200-299)
-  if (!resposta.ok) {
-    throw new Error(`Erro HTTP: ${resposta.status}`);
-  }
+        // Passo 33: Verificando se a requisição foi bem-sucedida (status 200-299)
+        if (!resposta.ok) {
+            throw new Error(`Erro HTTP: ${resposta.status}`);
+        }
 
-  // Passos 34 e 35: Convertendo o JSON para objeto JavaScript
-  const dados = await resposta.json();
-  console.log("Dados meteorológicos:", dados);
-
-  // Chamando a função que vai desenhar na tela (próximo passo)
-    renderizarClima(dados, latitude, longitude);
+        // Passos 34 e 35: Convertendo o JSON para objeto JavaScript
+        const dados = await resposta.json();
+        // Chamando a função que vai desenhar na tela (próximo passo)
+        renderizarClima(dados, latitude, longitude);
+        mostrarMensagem("Condições meteorológicas atualizadas.");
+    } catch(erro){
+        // Passos 48 e 49: Log técnico no console, mensagem amigável na tela
+        console.error("Falha ao consultar API:", erro);
+        mostrarMensagem("Não foi possível consultar os dados meteorológicos. \n Tente novamente.");
+    } finally {
+        // Passo 46: Reabilita o botão ao final de todo o processo
+        botaoLocalizacao.disabled = false;
+    }
 }
+
 
