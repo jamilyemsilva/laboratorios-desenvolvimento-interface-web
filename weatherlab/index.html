@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WeatherLab | Clima na sua localização</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/app.js" defer></script>
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <h1>WeatherLab</h1>
+        <p>
+            Consulte as condições meteorológicas
+            da sua localização atual.
+        </p>
+    </header>
+
+    <main class="conteudo">
+        <section class="painel" aria-labelledby="titulo-consulta">
+            
+            <h2 id="titulo-consulta">Clima atual</h2>
+            <p>
+                Permita o acesso à sua localização
+                para consultar as condições atuais.
+            </p>
+
+            <button id="botao-localizacao" type="button">
+                Usar minha localização
+            </button>
+
+            <p id="mensagem-status" aria-live="polite"></p>
+
+        </section>
+
+        <section id="resultado" class="resultado" aria-labelledby="titulo-resultado" hidden>
+            
+            <h2 id="titulo-resultado">Condições atuais</h2>
+
+            <div class="dados-clima">
+                <article>
+                    <h3>Temperatura</h3>
+                    <p id="temperatura">--</p>
+                </article>
+
+                <article>
+                    <h3>Sensação térmica</h3>
+                    <p id="sensacao">--</p>
+                </article>
+
+                <article>
+                    <h3>Umidade</h3>
+                    <p id="umidade">--</p>
+                </article>
+
+                <article>
+                    <h3>Vento</h3>
+                    <p id="vento">--</p>
+                </article>
+            </div>
+
+            <p id="coordenadas"></p>
+
+        </section>
+
+    </main>
+</body>
+</html>
