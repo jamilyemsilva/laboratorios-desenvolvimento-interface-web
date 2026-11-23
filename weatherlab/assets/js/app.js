@@ -30,7 +30,7 @@ function sucessoLocalizacao(posicao){
 
 function erroLocalizacao(erro){
     console.error("Código do erro:", erro.code, erro.message);
-    botaoLocalizacao.disabled = true;
+    botaoLocalizacao.disabled = false;
     if (erro.code === 1) {
         mostrarMensagem("Permissão de localização negada pelo usuário.");
     } else if (erro.code === 2) {
@@ -42,14 +42,31 @@ function erroLocalizacao(erro){
     }
 }
 
+// Passo 53: Traduzindo o código meteorológico (WMO)
+function descreverCondicao(codigo) {
+    if (codigo === 0) return "Céu limpo";
+    if (codigo >= 1 && codigo <= 3) return "Parcialmente nublado";
+    if (codigo === 45 || codigo === 48) return "Nevoeiro";
+    if ((codigo >= 51 && codigo <= 67) || (codigo >= 80 && codigo <= 82)) return "Chuva";
+    if ((codigo >= 71 && codigo <= 77) || (codigo >= 85 && codigo <= 86)) return "Neve";
+    if (codigo >= 95 && codigo <= 99) return "Tempestade";
+    return "Condição não especificada";
+}
+
+
 // Passos 38 a 41: Apresentando os dados na interface
 function renderizarClima(dados, latitude, longitude) {
+    const condicao = descreverCondicao(dados.current.weather_code);
+    // Passo 57 (Desafio): Formatando o horário retornado pela API (ex: "2026-11-23T13:00")
+    const horarioObservacao = dados.current.time.replace("T", " às ");
+
   temperatura.textContent = `${dados.current.temperature_2m} ${dados.current_units.temperature_2m}`;
   sensacao.textContent = `${dados.current.apparent_temperature} ${dados.current_units.apparent_temperature}`;
   umidade.textContent = `${dados.current.relative_humidity_2m} ${dados.current_units.relative_humidity_2m}`;
   vento.textContent = `${dados.current.wind_speed_10m} ${dados.current_units.wind_speed_10m}`;
 
-  coordenadas.textContent = `Latitude: ${latitude.toFixed(4)} | Longitude: ${longitude.toFixed(4)}`;
+    coordenadas.textContent = `Condição: ${condicao} | Observação: ${horarioObservacao} 
+                            | Lat: ${latitude.toFixed(4)}, Lon: ${longitude.toFixed(4)}`;
 
   // Revela a seção de resultados na interface
   resultado.hidden = false;
@@ -58,6 +75,8 @@ function renderizarClima(dados, latitude, longitude) {
 function mostrarMensagem(texto){
     mensagemStatus.textContent = texto;
 }
+
+
 
 const opcoesLocalizacao = {
     enableHighAccuracy: false,
@@ -80,6 +99,7 @@ botaoLocalizacao.addEventListener(
 
 // Passos 27 a 35: Buscando dados na API externa
 async function carregarClima(latitude, longitude) {
+    mostrarMensagem("Consultando condições meteorológicas...");
   // Passo 28: Construindo os parâmetros de consulta
     try{
         const parametros = new URLSearchParams({
